@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <title>Tariq GPS Trucking - Oman</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Montserrat font for modern look -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <!-- Modern Google Fonts for style -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400|Nunito:400,700&display=swap" rel="stylesheet">
   <style>
     :root {
       --gold: #E2B857;
@@ -18,23 +18,36 @@
     html, body {
       margin: 0;
       padding: 0;
-      font-family: 'Montserrat', Arial, sans-serif;
+      font-family: 'Montserrat', 'Nunito', Arial, sans-serif;
       background: var(--blue);
       color: var(--silver);
       max-width: var(--max-width);
       min-height: 100vh;
     }
     body {
-      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=2560&q=80') center/cover no-repeat;
-      /* Omani desert/mountain scene from Unsplash */
-      background-attachment: fixed;
+      background: linear-gradient(135deg, #1A2238 80%, #38B6FF 100%);
+      /* overlay a desert/mountain landscape with dark glass effect */
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      z-index: -2;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      filter: brightness(0.4) blur(1px);
+      opacity: 0.9;
     }
     header {
-      background: linear-gradient(90deg, var(--blue) 70%, var(--turquoise) 100%);
+      background: rgba(26, 34, 56, 0.92);
       padding: 1em 2em;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(56,182,255,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
     .logo {
       display: flex;
@@ -52,6 +65,7 @@
       font-size: 2em;
       color: var(--blue);
       box-shadow: 0 0 12px var(--turquoise);
+      letter-spacing: 1px;
     }
     nav ul {
       list-style: none;
@@ -86,15 +100,19 @@
       box-shadow: 0 0 80px var(--blue), 0 0 40px var(--turquoise) inset;
       max-width: 70vw;
       margin-top: 5vh;
+      backdrop-filter: blur(2px);
     }
     .hero-content h1 {
       font-size: 4em;
       margin-bottom: 0.25em;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #1A2238;
     }
     .hero-content p {
       font-size: 2em;
       margin-bottom: 1.5em;
       color: var(--silver);
+      font-family: 'Nunito', Arial, sans-serif;
     }
     .cta {
       background: var(--turquoise);
@@ -108,6 +126,7 @@
       border: none;
       cursor: pointer;
       transition: background 0.2s;
+      font-family: 'Montserrat', Arial, sans-serif;
     }
     .cta:hover {
       background: var(--gold);
@@ -136,6 +155,15 @@
       align-items: center;
       gap: 1em;
       transition: transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 70% 30%, rgba(56,182,255,0.16) 0%, transparent 70%);
+      z-index: 0;
     }
     .feature-card:hover {
       transform: scale(1.08);
@@ -144,6 +172,7 @@
     .feature-icon {
       width: 60px; height: 60px;
       margin-bottom: 0.7em;
+      z-index: 2;
     }
     #fleet {
       padding: 4em 2vw;
@@ -161,16 +190,26 @@
       margin-bottom: 2em;
       overflow: hidden;
     }
+    .fleet-map::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      opacity: 0.23;
+      z-index: 0;
+      filter: blur(0.5px);
+    }
     .fleet-icon {
       position: absolute;
       width: 44px;
       height: 44px;
       transition: transform 0.3s;
       cursor: pointer;
+      z-index: 2;
     }
     .fleet-icon:hover {
       transform: scale(1.25);
-      z-index: 2;
+      z-index: 3;
     }
     .fleet-popup {
       position: absolute;
@@ -182,6 +221,8 @@
       box-shadow: 0 0 12px var(--gold);
       display: none;
       z-index: 10;
+      min-width: 160px;
+      pointer-events: none;
     }
     #about, #contact {
       padding: 4em 2vw;
@@ -189,7 +230,7 @@
       margin: 0 auto;
       font-size: 1.2em;
       color: var(--silver);
-      background: rgba(26,34,56,0.86);
+      background: rgba(26,34,56,0.92);
       border-radius: 28px;
       margin-bottom: 2em;
     }
@@ -235,6 +276,7 @@
       padding: 2em 0;
       font-size: 1.15em;
       margin-top: 2em;
+      box-shadow: 0 -2px 20px rgba(56,182,255,0.08);
     }
     .footer-links a {
       color: var(--turquoise);
@@ -306,12 +348,7 @@
     </section>
     <section id="fleet">
       <h2 style="color:var(--gold);text-align:center;margin-top:2em;">Fleet Overview</h2>
-      <div class="fleet-map" id="fleet-map">
-        <!-- Sample fleet icons placed randomly on map area -->
-        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
-             alt="Omani landscape" style="width:100%;height:100%;position:absolute;top:0;left:0;z-index:0;opacity:0.35;">
-        <!-- Fleet trucks with popups -->
-      </div>
+      <div class="fleet-map" id="fleet-map"></div>
     </section>
     <section id="about">
       <h2 style="color:var(--gold);text-align:center;">About Tariq</h2>
@@ -346,7 +383,7 @@
     <p>&copy; 2025 Tariq GPS Trucking. All rights reserved.</p>
   </footer>
   <script>
-    // Sample fleet icons with popups (static positions for demo)
+    // Modern interactive fleet icons
     const fleet = [
       { id: 1, left: 220, top: 60, name: "Truck 1", status: "Active", speed: "82 km/h" },
       { id: 2, left: 480, top: 200, name: "Truck 2", status: "Idle", speed: "0 km/h" },
