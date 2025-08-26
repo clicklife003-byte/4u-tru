@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tariq GPS Trucking - Oman</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Montserrat font for modern look -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #E2B857;
+      --blue: #1A2238;
+      --green: #4E944F;
+      --silver: #B7C4CF;
+      --turquoise: #38B6FF;
+      --max-width: 7680px;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: var(--blue);
+      color: var(--silver);
+      max-width: var(--max-width);
+      min-height: 100vh;
+    }
+    body {
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=2560&q=80') center/cover no-repeat;
+      /* Omani desert/mountain scene from Unsplash */
+      background-attachment: fixed;
+    }
+    header {
+      background: linear-gradient(90deg, var(--blue) 70%, var(--turquoise) 100%);
+      padding: 1em 2em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+    }
+    .logo-icon {
+      width: 60px; height: 60px;
+      border-radius: 12px;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 2em;
+      color: var(--blue);
+      box-shadow: 0 0 12px var(--turquoise);
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5em;
+      margin: 0;
+      padding: 0;
+    }
+    nav a {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 1.25em;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: var(--turquoise);
+    }
+    .hero {
+      min-height: 620px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .hero-content {
+      background: rgba(26, 34, 56, 0.82);
+      padding: 3em 6em;
+      border-radius: 32px;
+      text-align: center;
+      color: var(--gold);
+      box-shadow: 0 0 80px var(--blue), 0 0 40px var(--turquoise) inset;
+      max-width: 70vw;
+      margin-top: 5vh;
+    }
+    .hero-content h1 {
+      font-size: 4em;
+      margin-bottom: 0.25em;
+    }
+    .hero-content p {
+      font-size: 2em;
+      margin-bottom: 1.5em;
+      color: var(--silver);
+    }
+    .cta {
+      background: var(--turquoise);
+      color: var(--blue);
+      font-size: 1.5em;
+      font-weight: bold;
+      padding: 0.75em 2.2em;
+      border-radius: 16px;
+      text-decoration: none;
+      box-shadow: 0 0 18px var(--turquoise);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .cta:hover {
+      background: var(--gold);
+      color: var(--blue);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2em;
+      padding: 4em 2vw;
+      justify-items: center;
+    }
+    .feature-card {
+      background: linear-gradient(135deg, var(--blue) 70%, var(--green) 100%);
+      border-radius: 24px;
+      padding: 2em 1em;
+      box-shadow: 0 0 32px var(--turquoise);
+      text-align: center;
+      width: 100%;
+      max-width: 280px;
+      color: var(--gold);
+      font-size: 1.1em;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1em;
+      transition: transform 0.2s;
+    }
+    .feature-card:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 40px var(--turquoise), 0 0 20px var(--gold) inset;
+    }
+    .feature-icon {
+      width: 60px; height: 60px;
+      margin-bottom: 0.7em;
+    }
+    #fleet {
+      padding: 4em 2vw;
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .fleet-map {
+      background: rgba(26,34,56,0.85);
+      border-radius: 32px;
+      padding: 2em;
+      min-height: 340px;
+      position: relative;
+      box-shadow: 0 0 36px var(--blue);
+      margin-bottom: 2em;
+      overflow: hidden;
+    }
+    .fleet-icon {
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    .fleet-icon:hover {
+      transform: scale(1.25);
+      z-index: 2;
+    }
+    .fleet-popup {
+      position: absolute;
+      background: var(--turquoise);
+      color: var(--blue);
+      padding: 1em 2em;
+      border-radius: 18px;
+      font-size: 1.2em;
+      box-shadow: 0 0 12px var(--gold);
+      display: none;
+      z-index: 10;
+    }
+    #about, #contact {
+      padding: 4em 2vw;
+      max-width: 1200px;
+      margin: 0 auto;
+      font-size: 1.2em;
+      color: var(--silver);
+      background: rgba(26,34,56,0.86);
+      border-radius: 28px;
+      margin-bottom: 2em;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5em;
+      max-width: 600px;
+      margin: 0 auto 2em auto;
+    }
+    form input, form textarea {
+      border-radius: 10px;
+      border: 1px solid var(--gold);
+      padding: 0.8em;
+      font-size: 1.1em;
+      background: var(--blue);
+      color: var(--silver);
+    }
+    form button {
+      background: var(--turquoise);
+      color: var(--blue);
+      font-size: 1.1em;
+      font-weight: bold;
+      border-radius: 14px;
+      padding: 0.6em 1.5em;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    form button:hover {
+      background: var(--gold);
+      color: var(--blue);
+    }
+    .contact-info {
+      font-size: 1.1em;
+      color: var(--gold);
+      margin-top: 2em;
+    }
+    footer {
+      background: var(--blue);
+      color: var(--silver);
+      text-align: center;
+      padding: 2em 0;
+      font-size: 1.15em;
+      margin-top: 2em;
+    }
+    .footer-links a {
+      color: var(--turquoise);
+      margin: 0 0.8em;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .footer-links a:hover {
+      color: var(--gold);
+    }
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-content { padding: 2em 1em; }
+    }
+    @media (max-width: 600px) {
+      header { flex-direction: column; }
+      nav ul { flex-direction: column; gap: 1em; }
+      .features-grid { grid-template-columns: 1fr; }
+      .hero-content h1 { font-size: 2em; }
+      .hero-content p { font-size: 1.1em; }
+      .footer-links { font-size: 1em; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="logo-icon">T</div>
+      <span style="font-size:2em;font-weight:700;color:var(--gold);">Tariq GPS Trucking</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#fleet">Fleet</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h1>Find Your Path with Tariq GPS</h1>
+        <p>Modern fleet tracking for Oman’s roads.</p>
+        <a class="cta" href="#features">Get Started</a>
+      </div>
+    </section>
+    <section id="features">
+      <h2 style="color:var(--gold);text-align:center;margin-top:2em;">Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#38B6FF" stroke="#E2B857" stroke-width="4"/><circle cx="30" cy="30" r="10" fill="#1A2238" stroke="#E2B857" stroke-width="3"/><rect x="27" y="8" width="6" height="14" rx="3" fill="#E2B857"/></svg>
+          <h3>GPS Tracking</h3>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 60 60"><path d="M10 45 Q30 15 50 45" stroke="#38B6FF" stroke-width="4" fill="none"/><circle cx="10" cy="45" r="5" fill="#E2B857"/><circle cx="50" cy="45" r="5" fill="#E2B857"/></svg>
+          <h3>Route Planning</h3>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 60 60"><rect x="10" y="20" width="40" height="20" rx="8" fill="#4E944F" stroke="#E2B857" stroke-width="4"/><circle cx="20" cy="48" r="4" fill="#38B6FF"/><circle cx="40" cy="48" r="4" fill="#38B6FF"/></svg>
+          <h3>Fleet Analytics</h3>
+        </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 60 60"><circle cx="30" cy="30" r="27" fill="#1A2238" stroke="#E2B857" stroke-width="3"/><path d="M40 20 Q30 40 20 20" stroke="#38B6FF" stroke-width="5" fill="none"/><circle cx="30" cy="30" r="5" fill="#4E944F"/></svg>
+          <h3>8D Dashboard</h3>
+        </div>
+      </div>
+    </section>
+    <section id="fleet">
+      <h2 style="color:var(--gold);text-align:center;margin-top:2em;">Fleet Overview</h2>
+      <div class="fleet-map" id="fleet-map">
+        <!-- Sample fleet icons placed randomly on map area -->
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
+             alt="Omani landscape" style="width:100%;height:100%;position:absolute;top:0;left:0;z-index:0;opacity:0.35;">
+        <!-- Fleet trucks with popups -->
+      </div>
+    </section>
+    <section id="about">
+      <h2 style="color:var(--gold);text-align:center;">About Tariq</h2>
+      <p>
+        Our story begins on the roads of Oman. Tariq GPS Trucking brings immersive technology and proven reliability to fleet management across the region.<br>
+        Our mission: <span style="color:var(--turquoise);font-weight:bold;">Connect, track, and optimize every journey.</span>
+      </p>
+    </section>
+    <section id="contact">
+      <h2 style="color:var(--gold);text-align:center;">Contact</h2>
+      <form>
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea placeholder="Message" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+      <div class="contact-info">
+        <p>Email: info@tariqgps.om</p>
+        <p>Phone: +968 1234 5678</p>
+        <p>Location: Muscat, Oman</p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-links">
+      <a href="#home">Home</a> |
+      <a href="#fleet">Fleet</a> |
+      <a href="#features">Features</a> |
+      <a href="#about">About</a> |
+      <a href="#contact">Contact</a>
+    </div>
+    <p>&copy; 2025 Tariq GPS Trucking. All rights reserved.</p>
+  </footer>
+  <script>
+    // Sample fleet icons with popups (static positions for demo)
+    const fleet = [
+      { id: 1, left: 220, top: 60, name: "Truck 1", status: "Active", speed: "82 km/h" },
+      { id: 2, left: 480, top: 200, name: "Truck 2", status: "Idle", speed: "0 km/h" },
+      { id: 3, left: 700, top: 120, name: "Truck 3", status: "En Route", speed: "60 km/h" }
+    ];
+    function createFleetIcon(f) {
+      const icon = document.createElement('div');
+      icon.className = 'fleet-icon';
+      icon.style.left = f.left + 'px';
+      icon.style.top = f.top + 'px';
+      icon.innerHTML =
+        `<svg viewBox="0 0 44 44" width="44" height="44">
+          <rect x="6" y="14" width="32" height="18" rx="6" fill="#E2B857" stroke="#38B6FF" stroke-width="3"/>
+          <circle cx="16" cy="38" r="4" fill="#4E944F"/>
+          <circle cx="28" cy="38" r="4" fill="#4E944F"/>
+        </svg>`;
+      // Popup
+      const popup = document.createElement('div');
+      popup.className = 'fleet-popup';
+      popup.innerHTML = `<b>${f.name}</b><br>Status: ${f.status}<br>Speed: ${f.speed}`;
+      popup.style.left = (f.left + 50) + 'px';
+      popup.style.top = (f.top - 10) + 'px';
+      icon.onmouseenter = () => { popup.style.display = 'block'; };
+      icon.onmouseleave = () => { popup.style.display = 'none'; };
+      icon.onclick = () => { popup.style.display = 'block'; };
+      document.getElementById('fleet-map').appendChild(icon);
+      document.getElementById('fleet-map').appendChild(popup);
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      fleet.forEach(createFleetIcon);
+    });
+    // Optional: Prevent default form submission
+    document.querySelector('form').onsubmit = e => {
+      e.preventDefault();
+      alert('Thank you for contacting Tariq GPS!');
+    };
+  </script>
+</body>
+</html>
